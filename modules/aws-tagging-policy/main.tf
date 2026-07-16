@@ -2,23 +2,22 @@
 # AWS Organizations Service Control Policy (SCP) for Tagging Enforcement
 # -----------------------------------------------------------------------------
 data "aws_iam_policy_document" "require_tags" {
-  statement {
-    sid       = "RequireMandatoryTagsOnCreation"
-    effect    = "Deny"
-    actions   = [
-      "ec2:RunInstances",
-      "ec2:CreateVolume",
-      "rds:CreateDBInstance",
-      "rds:CreateDBCluster"
-    ]
-    resources = ["*"]
+  dynamic "statement" {
+    for_each = var.mandatory_tags
+    content {
+      sid    = "Require${statement.value}TagOnCreation"
+      effect = "Deny"
+      actions = [
+        "ec2:RunInstances",
+        "ec2:CreateVolume",
+        "rds:CreateDBInstance",
+        "rds:CreateDBCluster"
+      ]
+      resources = ["*"]
 
-    # Block creation if ANY of the mandatory tags are missing
-    dynamic "condition" {
-      for_each = var.mandatory_tags
-      content {
+      condition {
         test     = "Null"
-        variable = "aws:RequestTag/${condition.value}"
+        variable = "aws:RequestTag/${statement.value}"
         values   = ["true"]
       }
     }

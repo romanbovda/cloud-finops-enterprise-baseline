@@ -9,7 +9,7 @@ module "aws_finops_baseline" {
   environment          = var.environment
   monthly_budget_limit = var.monthly_budget_limit
   notification_emails  = var.notification_emails
-  
+
   tags = {
     Environment = "production"
     ManagedBy   = "terraform"
@@ -23,4 +23,20 @@ module "aws_tagging_policy" {
 
   target_id      = var.org_root_id
   mandatory_tags = ["Owner", "Project", "Environment", "CostCenter"]
+}
+
+# -----------------------------------------------------------------------------
+# Example Resource for Cost Estimation (Infracost)
+# -----------------------------------------------------------------------------
+resource "aws_instance" "example_workload" {
+  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2
+  instance_type = "t3.medium"
+
+  tags = {
+    Name        = "finops-demo-workload"
+    Owner       = "finops-team"
+    Project     = "enterprise-baseline"
+    Environment = "production"
+    CostCenter  = "CC-12345"
+  }
 }
