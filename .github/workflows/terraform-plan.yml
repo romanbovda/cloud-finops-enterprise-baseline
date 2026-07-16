@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+permissions: read-all
+
 jobs:
   security-scan:
     name: Checkov Security Scan

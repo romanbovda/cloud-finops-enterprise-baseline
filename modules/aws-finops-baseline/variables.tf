@@ -22,7 +22,7 @@ variable "monthly_budget_limit" {
 variable "account_id" {
   description = "The AWS Account ID"
   type        = string
-  
+
   validation {
     condition     = can(regex("^\\d{12}$", var.account_id)) || var.account_id == "<AWS_ACCOUNT_ID>"
     error_message = "The account_id must be exactly 12 digits."
@@ -44,8 +44,8 @@ variable "tags" {
   description = "Tags to apply to FinOps resources"
   type        = map(string)
   default = {
-    ManagedBy   = "terraform"
-    Department  = "finops"
-    Company     = "your-company-name"
+    ManagedBy  = "terraform"
+    Department = "finops"
+    Company    = "your-company-name"
   }
 }

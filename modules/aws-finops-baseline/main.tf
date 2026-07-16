@@ -73,9 +73,9 @@ resource "aws_ce_anomaly_subscription" "realtime_subscription" {
 
   threshold_expression {
     dimension {
-      key            = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
-      match_options  = ["GREATER_THAN_OR_EQUAL"]
-      values         = ["10.0"] # Alert on anomalies > $10
+      key           = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
+      match_options = ["GREATER_THAN_OR_EQUAL"]
+      values        = ["10.0"] # Alert on anomalies > $10
     }
   }
 }
