@@ -29,8 +29,20 @@ module "aws_tagging_policy" {
 # Example Resource for Cost Estimation (Infracost)
 # -----------------------------------------------------------------------------
 resource "aws_instance" "example_workload" {
-  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2
-  instance_type = "t3.medium"
+  ami                  = "ami-0c55b159cbfafe1f0" # Amazon Linux 2
+  instance_type        = "t3.medium"
+  ebs_optimized        = true
+  iam_instance_profile = "finops-demo-profile"
+  monitoring           = true
+
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
+
+  root_block_device {
+    encrypted = true
+  }
 
   tags = {
     Name        = "finops-demo-workload"
