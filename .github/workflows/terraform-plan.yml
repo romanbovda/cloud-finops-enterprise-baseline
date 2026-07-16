@@ -39,7 +39,8 @@ jobs:
 
       - name: Run Infracost breakdown
         run: |
-          infracost breakdown --path . \
+          infracost breakdown --path examples/production-baseline \
+                              --terraform-var-file terraform.tfvars.example \
                               --format json \
                               --out-file /tmp/infracost.json
 
