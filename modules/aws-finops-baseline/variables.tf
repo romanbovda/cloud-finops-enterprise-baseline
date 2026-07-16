@@ -1,7 +1,6 @@
 variable "notification_emails" {
   description = "List of email addresses to receive budget and anomaly alerts"
   type        = list(string)
-  default     = ["finops-alerts@example.com"]
 
   validation {
     condition     = length(var.notification_emails) > 0

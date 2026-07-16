@@ -3,6 +3,7 @@
 # -----------------------------------------------------------------------------
 resource "aws_budgets_budget" "cost_budget" {
   name              = "monthly-budget-limit-${var.environment}"
+  account_id        = var.account_id
   budget_type       = "COST"
   limit_amount      = tostring(var.monthly_budget_limit)
   limit_unit        = "USD"
@@ -53,12 +54,14 @@ resource "aws_ce_anomaly_monitor" "service_monitor" {
   name              = "AWSServiceMonitor-${var.environment}"
   monitor_type      = "DIMENSIONAL"
   monitor_dimension = "SERVICE"
+  tags              = merge(var.tags, { AccountId = var.account_id })
 }
 
 resource "aws_ce_anomaly_subscription" "realtime_subscription" {
   name             = "RealtimeAnomalySubscription-${var.environment}"
-  frequency        = "DAILY"
+  frequency        = "IMMEDIATE"
   monitor_arn_list = [aws_ce_anomaly_monitor.service_monitor.arn]
+  tags             = merge(var.tags, { AccountId = var.account_id })
 
   dynamic "subscriber" {
     for_each = var.notification_emails
