@@ -17,8 +17,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install pre-commit
-        run: pip install pre-commit
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Setup Trivy
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+
+      - name: Install pre-commit and Checkov
+        run: pip install pre-commit checkov
 
       - name: Run pre-commit
         run: pre-commit run --all-files
