@@ -2,7 +2,7 @@
 
 [![Terraform](https://img.shields.io/badge/Terraform-1.5+-623CE4.svg?logo=terraform)](https://www.terraform.io/)
 [![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF.svg?logo=github-actions)](https://github.com/features/actions)
-[![Infracost](https://img.shields.io/badge/FinOps-Infracost-00c7b7.svg?logo=google-cloud)](https://www.infracost.io/)
+[![Infracost](https://img.shields.io/badge/FinOps-Infracost-00c7b7.svg?logo=infracost)](https://www.infracost.io/)
 [![Security](https://img.shields.io/badge/DevSecOps-Trivy_%7C_Checkov-000000.svg?logo=security)](https://trivy.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -41,6 +41,6 @@ Our GitHub Actions pipeline enforces a zero-trust approach to infrastructure cha
 
 ## Author
 
-**Roman Bovda**  
-Cloud FinOps & Infrastructure Expert  
+**Roman Bovda**
+Cloud FinOps & Infrastructure Expert
 [LinkedIn](https://www.linkedin.com/in/roman-bovda-918659102/) | [GitHub](https://github.com/romanbovda)

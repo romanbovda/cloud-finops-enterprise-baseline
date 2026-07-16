@@ -10,7 +10,7 @@ This example demonstrates how to deploy the enterprise FinOps baseline across yo
 
 ## Prerequisites
 
-- Terraform `~> 1.5.0`
+- Terraform `>= 1.5.0`
 - AWS credentials with permissions to manage Budgets, Cost Explorer, and AWS Organizations.
 
 ## Usage
