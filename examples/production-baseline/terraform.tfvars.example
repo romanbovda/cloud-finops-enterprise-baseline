@@ -1,0 +1,15 @@
+# ==========================================
+# Cloud FinOps Baseline Configuration Example
+# ==========================================
+
+aws_account_id = "<AWS_ACCOUNT_ID>"
+org_root_id    = "r-abcd" # Replace with your AWS Organizations Root ID
+aws_region     = "us-east-1"
+environment    = "prod"
+
+# FinOps Budget Configuration
+monthly_budget_limit = 5000 # Monthly budget in USD
+notification_emails = [
+  "cto-alerts@example.com",
+  "finops-team@example.com"
+]

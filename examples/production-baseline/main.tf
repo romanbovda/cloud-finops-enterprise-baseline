@@ -6,9 +6,9 @@ module "aws_finops_baseline" {
   source = "../../modules/aws-finops-baseline"
 
   account_id           = var.aws_account_id
-  environment          = "prod"
-  monthly_budget_limit = 5000
-  notification_emails  = ["finops-alerts@example.com"]
+  environment          = var.environment
+  monthly_budget_limit = var.monthly_budget_limit
+  notification_emails  = var.notification_emails
   
   tags = {
     Environment = "production"
