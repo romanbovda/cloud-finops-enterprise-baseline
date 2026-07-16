@@ -1,0 +1,9 @@
+terraform {
+  backend "s3" {
+    bucket         = "your-company-name-terraform-state"
+    key            = "finops-baseline/production/terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
+}
