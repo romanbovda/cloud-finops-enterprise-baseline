@@ -43,4 +43,4 @@ Our GitHub Actions pipeline enforces a zero-trust approach to infrastructure cha
 
 **Roman Bovda**  
 Cloud FinOps & Infrastructure Expert  
-[LinkedIn](https://linkedin.com/in/rbovda) | [GitHub](https://github.com/romanbovda)
+[LinkedIn](https://www.linkedin.com/in/roman-bovda-918659102/) | [GitHub](https://github.com/romanbovda)
