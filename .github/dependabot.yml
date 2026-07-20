@@ -9,9 +9,18 @@ updates:
       - "dependencies"
       - "github-actions"
 
-  # Maintain dependencies for Terraform
+  # Maintain dependencies for Terraform Modules
   - package-ecosystem: "terraform"
-    directory: "/"
+    directory: "/modules"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "terraform"
+
+  # Maintain dependencies for Terraform Examples
+  - package-ecosystem: "terraform"
+    directory: "/examples/production-baseline"
     schedule:
       interval: "weekly"
     labels:
