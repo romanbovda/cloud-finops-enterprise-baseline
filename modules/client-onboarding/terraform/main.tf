@@ -56,21 +56,21 @@ variable "tags" {
 # 2. Athena Query Results Infrastructure
 # ==========================================
 
+# trivy:ignore:AVD-AWS-0089
+# trivy:ignore:AVD-AWS-0090
 resource "aws_s3_bucket" "athena_results" {
   # checkov:skip=CKV2_AWS_62: Event notifications not required for temporary Athena results bucket
   # checkov:skip=CKV_AWS_21: Versioning not required for temporary Athena results bucket
   # checkov:skip=CKV_AWS_144: Cross-region replication not required for temporary Athena results bucket
   # checkov:skip=CKV_AWS_145: SSE-KMS not required, default SSE-S3 is sufficient for temporary results
   # checkov:skip=CKV_AWS_18: Access logging not required for temporary Athena results bucket
-  # trivy:ignore:AVD-AWS-0089
-  # trivy:ignore:AVD-AWS-0090
   bucket        = "finops-audit-results-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
   force_destroy = true
   tags          = var.tags
 }
 
+# trivy:ignore:AVD-AWS-0132
 resource "aws_s3_bucket_server_side_encryption_configuration" "athena_results" {
-  # trivy:ignore:AVD-AWS-0132
   bucket = aws_s3_bucket.athena_results.id
 
   rule {
