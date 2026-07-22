@@ -25,7 +25,7 @@ provider "aws" {
 module "finops_audit" {
   # This URL points directly to the FinOps Audit Engine module on GitHub.
   # `terraform init` will download it automatically — no manual file copying needed.
-  source = "github.com/romanbovda/finops-audit-engine//client-onboarding/terraform?ref=main"
+  source = "github.com/romanbovda/cloud-finops-enterprise-baseline//modules/client-onboarding/terraform?ref=main"
 
   # --- Required: provided by your FinOps consultant ---
   cur_bucket_name        = "YOUR_CUR_S3_BUCKET_NAME"

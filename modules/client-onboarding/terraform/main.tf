@@ -1,6 +1,6 @@
 # ==========================================
 # FinOps Audit Engine — Client-Side Module
-# Source: github.com/romanbovda/finops-audit-engine//client-onboarding/terraform
+# Source: github.com/romanbovda/cloud-finops-enterprise-baseline//modules/client-onboarding/terraform
 # DO NOT EDIT — managed by FinOps Audit Engine
 # ==========================================
 
