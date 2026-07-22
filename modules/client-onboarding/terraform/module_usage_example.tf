@@ -1,0 +1,41 @@
+# FinOps Audit Engine — Client Onboarding (Single-File Setup)
+#
+# Instructions:
+# 1. Fill in the 4 variable values below (provided by your FinOps consultant).
+# 2. Run: terraform init && terraform plan && terraform apply
+# 3. Share the output `finops_role_arn` with your FinOps consultant.
+#
+# That's it. No files to copy, no Python scripts to run.
+# ============================================================
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  # Specify the region where your CUR data lives.
+  # region = "eu-west-1"
+}
+
+module "finops_audit" {
+  # This URL points directly to the FinOps Audit Engine module on GitHub.
+  # `terraform init` will download it automatically — no manual file copying needed.
+  source = "github.com/romanbovda/finops-audit-engine//client-onboarding/terraform?ref=main"
+
+  # --- Required: provided by your FinOps consultant ---
+  cur_bucket_name        = "YOUR_CUR_S3_BUCKET_NAME"
+  cur_glue_database_name = "athenacurcfn_cur"  # Default Glue DB name created by CUR integration
+  auditor_aws_account_id = "AUDITOR_ACCOUNT_ID_PROVIDED_BY_CONSULTANT"
+  external_id            = "EXTERNAL_ID_PROVIDED_BY_CONSULTANT"
+}
+
+# Share this ARN with your FinOps consultant to initiate the audit.
+output "finops_role_arn" {
+  description = "Provide this ARN to your FinOps consultant"
+  value       = module.finops_audit.finops_role_arn
+}
