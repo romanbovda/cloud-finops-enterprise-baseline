@@ -1,7 +1,8 @@
 # Enterprise Cloud FinOps & Governance Baseline
 
 [![Terraform](https://img.shields.io/badge/Terraform-1.5+-623CE4.svg?logo=terraform)](https://www.terraform.io/)
-[![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF.svg?logo=github-actions)](https://github.com/features/actions)
+[![Main Branch Checks](https://github.com/romanbovda/cloud-finops-enterprise-baseline/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/romanbovda/cloud-finops-enterprise-baseline/actions/workflows/main.yml)
+
 [![Infracost](https://img.shields.io/badge/FinOps-Infracost-00c7b7.svg?logo=infracost)](https://www.infracost.io/)
 [![Security](https://img.shields.io/badge/DevSecOps-Trivy_%7C_Checkov-000000.svg?logo=security)](https://trivy.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
