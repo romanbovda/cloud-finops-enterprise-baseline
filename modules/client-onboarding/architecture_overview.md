@@ -15,17 +15,17 @@ flowchart LR
         CUR[("Raw Billing Data (S3)\nMassive scale, highly sensitive")]
         Athena[["Amazon Athena\n(Serverless Query Engine)"]]
         Role{"Least Privilege IAM Role\n(Protected by External ID)"}
-        
+
         CUR -. "Read-Only Access" .-> Athena
         Role -. "Strictly Scoped Execution" .-> Athena
     end
-    
+
     subgraph Auditor_Env ["🚀 Consulting AI Engine (Auditor AWS)"]
         direction TB
         AI_Agent["AI FinOps/SRE Agent\n(Generates Secure SQL)"]
         Analyzer["Automated Analyzer\n(Processes Aggregated Metrics)"]
     end
-    
+
     subgraph Deliverables ["✅ Consulting Deliverables"]
         direction TB
         SOW["Executive Report & Roadmap\n(Strategic Guidance)"]
@@ -35,7 +35,7 @@ flowchart LR
     %% Cross-account arrows with emphasis on what is transferred
     AI_Agent -- "1. Dispatches SQL Query\n(via Assumed Role)" --> Role
     Athena -- "2. Returns Aggregated Metrics\n(Only kilobytes of JSON/CSV)" --> Analyzer
-    
+
     Analyzer -- "3. Synthesizes" --> SOW
     Analyzer -- "4. Proposes" --> PR
     PR -. "Client Validates & Merges" .-> Client_Env
@@ -47,7 +47,7 @@ flowchart LR
     classDef sensitive_data fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,stroke-dasharray: 5 5;
     classDef compute fill:#e0f2fe,stroke:#0369a1,stroke-width:2px;
     classDef security fill:#fffbeb,stroke:#b45309,stroke-width:2px;
-    
+
     class Client_Env client_zone;
     class Auditor_Env auditor_zone;
     class Deliverables deliverable_zone;
@@ -60,5 +60,5 @@ flowchart LR
 
 1. **Zero Data Extraction:** Not a single megabyte of your raw Cost and Usage Report (CUR) or operational logs is transferred out of your perimeter. Our engine strictly orchestrates analysis using your internal compute resources (Amazon Athena).
 2. **Confused Deputy Protection:** The IAM Role established for our integration is safeguarded by an `ExternalId`, cryptographically ensuring that only our designated, authenticated system can assume the role.
-3. **Micro-Payload Return:** The only data traversing the cross-account boundary is the output of mathematical aggregations and statistical summaries (e.g., `[{"Unused_EC2_Wasted_Spend": 15000}]`). 
+3. **Micro-Payload Return:** The only data traversing the cross-account boundary is the output of mathematical aggregations and statistical summaries (e.g., `[{"Unused_EC2_Wasted_Spend": 15000}]`).
 4. **Actionable, Non-Destructive Delivery:** In addition to executive readouts, you receive ready-to-merge Infrastructure as Code (Terraform) Pull Requests. Your engineering teams retain absolute control and review authority over when and how infrastructure remediations are applied.

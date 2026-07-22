@@ -5,7 +5,7 @@ Welcome to the FinOps & SRE Consulting Services onboarding process. To maintain 
 To enable this capability, please deploy the provided Terraform module in your AWS environment. This module references our secure, open-source architecture directly from GitHub — **no files to manually copy, and no external scripts to execute**.
 
 > [!NOTE]
-> **What does this deploy?** 
+> **What does this deploy?**
 > This module provisions a secure Athena Workgroup, a temporary S3 bucket for query results (automatically purged after 3 days via lifecycle rules), and a Least Privilege Cross-Account IAM Role protected by a cryptographically unique `ExternalId`. The full source code is publicly auditable in our repository under `terraform/main.tf`.
 
 ---
@@ -48,10 +48,10 @@ module "finops_audit_integration" {
 
   cur_bucket_name        = "YOUR_CUR_S3_BUCKET_NAME"
   cur_glue_database_name = "athenacurcfn_cur"
-  
+
   # The following values will be securely provided by your consulting engagement manager:
-  auditor_aws_account_id = "AUDITOR_ACCOUNT_ID"   
-  external_id            = "EXTERNAL_ID"           
+  auditor_aws_account_id = "AUDITOR_ACCOUNT_ID"
+  external_id            = "EXTERNAL_ID"
 }
 
 output "finops_role_arn" {

@@ -7,7 +7,7 @@
 [![Security](https://img.shields.io/badge/DevSecOps-Trivy_%7C_Checkov-000000.svg?logo=security)](https://trivy.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An enterprise-grade **Cloud FinOps and SRE Baseline** engineered to enforce rigorous financial controls, architectural standards, and proactive anomaly detection across scale-out AWS environments. 
+An enterprise-grade **Cloud FinOps and SRE Baseline** engineered to enforce rigorous financial controls, architectural standards, and proactive anomaly detection across scale-out AWS environments.
 
 This repository serves as our foundational reference architecture for organizations seeking to operationalize Shift-Left FinOps and DevSecOps within their Infrastructure as Code (IaC) pipelines. It underpins our professional consulting methodologies.
 
@@ -25,7 +25,7 @@ In highly distributed cloud infrastructures, unpredictable operational costs and
 ## Repository Architecture
 
 - `modules/`: Strictly typed, highly reusable Terraform modules encapsulating AWS FinOps and Governance best practices.
-  - `client-onboarding/`: A secure, zero-data-extraction integration module utilized for our automated FinOps audits. 
+  - `client-onboarding/`: A secure, zero-data-extraction integration module utilized for our automated FinOps audits.
 - `examples/production-baseline/`: A fully functional, production-ready configuration demonstrating the consumption and composition of these modules.
 - `.github/workflows/`: Enterprise-grade CI/CD pipelines incorporating automated DevSecOps and FinOps tollgates.
 
@@ -45,6 +45,6 @@ This repository represents a core component of our professional FinOps and SRE c
 
 ---
 
-**Roman Bovda**  
-*Cloud FinOps & Site Reliability Engineering Consultant*  
+**Roman Bovda**
+*Cloud FinOps & Site Reliability Engineering Consultant*
 [LinkedIn](https://www.linkedin.com/in/roman-bovda-918659102/) | [GitHub](https://github.com/romanbovda)
