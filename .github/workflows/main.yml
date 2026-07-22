@@ -8,6 +8,7 @@ on:
       - '**.md'
       - 'docs/**'
       - 'LICENSE'
+  workflow_dispatch:
 
 permissions: read-all
 
