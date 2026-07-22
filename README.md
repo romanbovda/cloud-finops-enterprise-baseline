@@ -1,4 +1,4 @@
-# Enterprise Cloud FinOps & Governance Baseline
+# Enterprise Cloud FinOps & Governance Consulting Baseline
 
 [![Terraform](https://img.shields.io/badge/Terraform-1.5+-623CE4.svg?logo=terraform)](https://www.terraform.io/)
 [![Main Branch Checks](https://github.com/romanbovda/cloud-finops-enterprise-baseline/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/romanbovda/cloud-finops-enterprise-baseline/actions/workflows/main.yml)
@@ -7,41 +7,44 @@
 [![Security](https://img.shields.io/badge/DevSecOps-Trivy_%7C_Checkov-000000.svg?logo=security)](https://trivy.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An enterprise-grade **Cloud FinOps Baseline** designed to enforce strict financial controls, tagging policies, and proactive anomaly detection across AWS environments. This repository serves as a reference architecture for organizations seeking to implement Shift-Left FinOps and DevSecOps within their Infrastructure as Code (IaC) pipelines.
+An enterprise-grade **Cloud FinOps and SRE Baseline** engineered to enforce rigorous financial controls, architectural standards, and proactive anomaly detection across scale-out AWS environments. 
 
-## Business Value for Executives & CTOs
+This repository serves as our foundational reference architecture for organizations seeking to operationalize Shift-Left FinOps and DevSecOps within their Infrastructure as Code (IaC) pipelines. It underpins our professional consulting methodologies.
 
-In modern cloud infrastructures, unpredictable costs and compliance gaps are significant risks. This baseline directly addresses these challenges:
+## Strategic Value for Executives & Engineering Leaders
 
-- **Cost Predictability & Shift-Left FinOps**: By integrating `infracost` into the CI/CD pipeline, financial impact is calculated and reviewed on every Pull Request *before* deployment. Engineers see the price tag of their architectural decisions instantly.
+In highly distributed cloud infrastructures, unpredictable operational costs and compliance drift represent material business risks. This baseline framework programmatically mitigates these challenges:
+
+- **Cost Predictability & Shift-Left FinOps**: By natively integrating `infracost` into the CI/CD pipeline, the financial impact of architectural changes is calculated and reviewed during the Pull Request phase *before* infrastructure is provisioned. Engineering teams gain immediate visibility into the price tag of their designs.
 
   ![Infracost PR Report](docs/assets/infracost_report.png)
-- **Automated Cost Governance**: Prevents runaway costs by hard-blocking the deployment of untagged or non-compliant resources at the AWS Organizations level using Service Control Policies (SCPs). If a resource cannot be attributed to a cost center, it cannot be built.
-- **Proactive Cost Anomaly Detection**: Leverages AWS Machine Learning to instantly alert FinOps and Engineering teams the moment abnormal spending spikes occur, rather than discovering them at the end of the billing cycle.
-- **Continuous Security & Compliance**: Automated scanning via `trivy`, `checkov`, and `tflint` ensures that all infrastructure code adheres to SOC2 compliance and enterprise security baselines.
+- **Automated Governance & Guardrails**: Prevents unauthorized architectural sprawl by hard-blocking the deployment of untagged or non-compliant resources. Utilizing AWS Organizations Service Control Policies (SCPs), we ensure that if a resource cannot be attributed to a defined cost center, it cannot be built.
+- **Proactive Cost Anomaly Detection**: Employs AWS Machine Learning to instantly alert FinOps and SRE teams to abnormal spending spikes as they occur, rather than discovering budget overruns during end-of-month reconciliations.
+- **Continuous Security & Compliance**: Automated static analysis via `trivy`, `checkov`, and `tflint` ensures that all infrastructure code strictly adheres to SOC2 compliance frameworks and internal enterprise security baselines.
 
-## Repository Structure
+## Repository Architecture
 
-- `modules/`: Strictly typed, highly reusable Terraform modules for AWS FinOps and Governance.
-- `examples/production-baseline/`: A fully functional, production-ready configuration demonstrating how to consume the modules.
-- `.github/workflows/`: Enterprise CI/CD pipelines incorporating automated DevSecOps and FinOps checks.
-
-## Quick Start
-
-To deploy this baseline in your environment, refer to the [Production Baseline Example](examples/production-baseline/README.md) for detailed deployment instructions.
+- `modules/`: Strictly typed, highly reusable Terraform modules encapsulating AWS FinOps and Governance best practices.
+  - `client-onboarding/`: A secure, zero-data-extraction integration module utilized for our automated FinOps audits. 
+- `examples/production-baseline/`: A fully functional, production-ready configuration demonstrating the consumption and composition of these modules.
+- `.github/workflows/`: Enterprise-grade CI/CD pipelines incorporating automated DevSecOps and FinOps tollgates.
 
 ## CI/CD Pipeline Capabilities
 
-Our GitHub Actions pipeline enforces a zero-trust approach to infrastructure changes:
+Our reference CI/CD pipelines enforce a zero-trust approach to infrastructure mutations:
 
 ![DevSecOps Pipeline Checks](docs/assets/pipeline_checks.png)
 
-1. **Static Code Analysis**: Enforces Terraform formatting and static linting (`tflint`).
-2. **Security Scanning**: Deep inspection of Terraform code for misconfigurations (`trivy`, `checkov`).
-3. **FinOps Breakdown**: Generates a detailed cost estimate for the proposed changes and comments directly on the PR.
+1. **Static Code Analysis**: Enforces Terraform formatting and static linting (`tflint`) to ensure codebase consistency.
+2. **Security Scanning**: Deep inspection of Terraform code to identify and block security misconfigurations (`trivy`, `checkov`).
+3. **FinOps Breakdown**: Generates detailed cost estimates for proposed infrastructure changes, commenting directly on the Pull Request for financial review.
 
-## Author
+## Engagement
 
-**Roman Bovda**
-Cloud FinOps & Infrastructure Expert
+This repository represents a core component of our professional FinOps and SRE consulting engagements. To explore how we can optimize your cloud architecture and operationalize these controls within your organization, please review our [Client Onboarding Documentation](modules/client-onboarding/README.md).
+
+---
+
+**Roman Bovda**  
+*Cloud FinOps & Site Reliability Engineering Consultant*  
 [LinkedIn](https://www.linkedin.com/in/roman-bovda-918659102/) | [GitHub](https://github.com/romanbovda)
