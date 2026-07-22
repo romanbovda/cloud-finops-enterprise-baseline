@@ -5,6 +5,7 @@
 # ==========================================
 
 terraform {
+  required_version = ">= 1.5.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -42,6 +43,15 @@ variable "external_id" {
   sensitive   = true
 }
 
+variable "tags" {
+  description = "A map of tags to add to all resources"
+  type        = map(string)
+  default = {
+    "Environment" = "Prod"
+    "Service"     = "FinOpsAudit"
+  }
+}
+
 # ==========================================
 # 2. Athena Query Results Infrastructure
 # ==========================================
@@ -52,11 +62,15 @@ resource "aws_s3_bucket" "athena_results" {
   # checkov:skip=CKV_AWS_144: Cross-region replication not required for temporary Athena results bucket
   # checkov:skip=CKV_AWS_145: SSE-KMS not required, default SSE-S3 is sufficient for temporary results
   # checkov:skip=CKV_AWS_18: Access logging not required for temporary Athena results bucket
+  # trivy:ignore:AVD-AWS-0089
+  # trivy:ignore:AVD-AWS-0090
   bucket        = "finops-audit-results-${data.aws_caller_identity.current.account_id}-${data.aws_region.current.name}"
   force_destroy = true
+  tags          = var.tags
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "athena_results" {
+  # trivy:ignore:AVD-AWS-0132
   bucket = aws_s3_bucket.athena_results.id
 
   rule {
@@ -80,7 +94,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "athena_results_cleanup" {
   rule {
     id     = "delete-after-3-days"
     status = "Enabled"
-    
+
     abort_incomplete_multipart_upload {
       days_after_initiation = 3
     }
@@ -91,9 +105,36 @@ resource "aws_s3_bucket_lifecycle_configuration" "athena_results_cleanup" {
   }
 }
 
+data "aws_iam_policy_document" "athena_results_ssl" {
+  statement {
+    sid     = "AllowSSLRequestsOnly"
+    effect  = "Deny"
+    actions = ["s3:*"]
+    resources = [
+      aws_s3_bucket.athena_results.arn,
+      "${aws_s3_bucket.athena_results.arn}/*"
+    ]
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+    condition {
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = ["false"]
+    }
+  }
+}
+
+resource "aws_s3_bucket_policy" "athena_results_ssl" {
+  bucket = aws_s3_bucket.athena_results.id
+  policy = data.aws_iam_policy_document.athena_results_ssl.json
+}
+
 resource "aws_athena_workgroup" "finops_audit" {
   name          = "finops-audit-wg"
   force_destroy = true
+  tags          = var.tags
 
   configuration {
     enforce_workgroup_configuration    = true # Critical: Forces agent to use this specific bucket
@@ -115,12 +156,12 @@ resource "aws_athena_workgroup" "finops_audit" {
 data "aws_iam_policy_document" "assume_role" {
   statement {
     actions = ["sts:AssumeRole"]
-    
+
     principals {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${var.auditor_aws_account_id}:root"]
     }
-    
+
     condition {
       test     = "StringEquals"
       variable = "sts:ExternalId"
@@ -132,14 +173,15 @@ data "aws_iam_policy_document" "assume_role" {
 resource "aws_iam_role" "finops_auditor" {
   name               = "FinOpsAuditCrossAccountRole"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
+  tags               = var.tags
 }
 
 data "aws_iam_policy_document" "least_privilege" {
   # Access STRICTLY limited to the Athena Results Bucket (Read/Write)
   statement {
-    sid       = "AthenaResultsBucketAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "AthenaResultsBucketAccess"
+    effect = "Allow"
+    actions = [
       "s3:GetBucketLocation",
       "s3:ListBucket"
     ]
@@ -147,9 +189,9 @@ data "aws_iam_policy_document" "least_privilege" {
   }
 
   statement {
-    sid       = "AthenaResultsObjectAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "AthenaResultsObjectAccess"
+    effect = "Allow"
+    actions = [
       "s3:PutObject",
       "s3:GetObject",
       "s3:AbortMultipartUpload"
@@ -159,9 +201,9 @@ data "aws_iam_policy_document" "least_privilege" {
 
   # Access STRICTLY limited to READ-ONLY on the client's existing CUR Bucket
   statement {
-    sid       = "CURBucketReadAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "CURBucketReadAccess"
+    effect = "Allow"
+    actions = [
       "s3:GetBucketLocation",
       "s3:ListBucket"
     ]
@@ -177,9 +219,9 @@ data "aws_iam_policy_document" "least_privilege" {
 
   # Query execution STRICTLY limited to the isolated Workgroup
   statement {
-    sid       = "AthenaWorkgroupAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "AthenaWorkgroupAccess"
+    effect = "Allow"
+    actions = [
       "athena:StartQueryExecution",
       "athena:GetQueryExecution",
       "athena:GetQueryResults",
@@ -190,9 +232,9 @@ data "aws_iam_policy_document" "least_privilege" {
 
   # Access STRICTLY limited to the CUR schema in the Glue Catalog
   statement {
-    sid       = "GlueCatalogReadAccess"
-    effect    = "Allow"
-    actions   = [
+    sid    = "GlueCatalogReadAccess"
+    effect = "Allow"
+    actions = [
       "glue:GetDatabase",
       "glue:GetTable",
       "glue:GetPartitions"
@@ -209,6 +251,7 @@ resource "aws_iam_policy" "finops_auditor" {
   name        = "FinOpsAuditLeastPrivilegePolicy"
   description = "Strictly scoped access for automated FinOps auditing"
   policy      = data.aws_iam_policy_document.least_privilege.json
+  tags        = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "finops_auditor_attach" {
