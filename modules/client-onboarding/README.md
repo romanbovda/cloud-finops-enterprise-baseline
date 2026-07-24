@@ -14,9 +14,11 @@ To enable this capability, please deploy the provided Terraform module in your A
 
 Before proceeding with the deployment, please ensure the following prerequisites are met within your AWS environment:
 
-1. **AWS Cost and Usage Reports (CUR)** are enabled in the AWS Billing Console.
-2. The CUR is actively configured to export data in **Apache Parquet** format.
-3. **CUR Data Integration** is enabled for **Amazon Athena** (this automatically provisions the AWS Glue Data Catalog database, typically named `athenacurcfn_<report-name>`).
+1. **CUR 2.0 Data Export** is configured in Billing and Cost Management (Parquet, overwrite, resource IDs).
+2. **Amazon Athena** is selected under report data integration (this provisions the Glue Data Catalog — an S3-only export is not enough).
+3. At least one delivery has landed, and you can query the resulting table in Athena.
+
+Step-by-step console settings: [`enable_cur_athena.md`](./enable_cur_athena.md).
 
 > [!TIP]
 > Unlike some cloud providers that require explicit API enablement, Amazon S3, AWS IAM, and Amazon Athena APIs are enabled by default for all AWS accounts. No manual API activation is required.

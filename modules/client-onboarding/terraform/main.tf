@@ -37,6 +37,12 @@ variable "auditor_aws_account_id" {
   type        = string
 }
 
+variable "additional_auditor_aws_account_ids" {
+  description = "Extra AWS Account IDs, beyond auditor_aws_account_id, allowed to assume this role with the same external_id. Intended for the auditor's own internal test/CI fixtures that need more than one auditor-side account (e.g. an ephemeral sandbox account running smoke tests) to reach the same test client. Real clients should leave this as the default empty list and trust exactly one auditor account."
+  type        = list(string)
+  default     = []
+}
+
 variable "external_id" {
   description = "Unique string provided by the auditor to prevent Confused Deputy attack"
   type        = string
@@ -94,6 +100,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "athena_results_cleanup" {
   rule {
     id     = "delete-after-3-days"
     status = "Enabled"
+
+    # Required by newer provider versions even when applying to the whole
+    # bucket — an empty filter means "no prefix/tag restriction".
+    filter {}
 
     abort_incomplete_multipart_upload {
       days_after_initiation = 3
@@ -158,8 +168,11 @@ data "aws_iam_policy_document" "assume_role" {
     actions = ["sts:AssumeRole"]
 
     principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::${var.auditor_aws_account_id}:root"]
+      type = "AWS"
+      identifiers = [
+        for account_id in concat([var.auditor_aws_account_id], var.additional_auditor_aws_account_ids) :
+        "arn:aws:iam::${account_id}:root"
+      ]
     }
 
     condition {
