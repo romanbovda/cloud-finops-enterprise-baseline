@@ -50,8 +50,8 @@ The first delivery can take up to 24 hours.
 4. Verify that you correctly selected **Overwrite existing data export file** in Step 1 by running this canary query:
 
    ```sql
-   SELECT bill_billing_period_start_date as billing_period, COUNT(DISTINCT "$path") as file_versions 
-   FROM <your_database>.<your_table> 
+   SELECT bill_billing_period_start_date as billing_period, COUNT(DISTINCT "$path") as file_versions
+   FROM <your_database>.<your_table>
    GROUP BY 1;
    ```
 

@@ -260,6 +260,7 @@ data "aws_iam_policy_document" "least_privilege" {
   }
 
   # Access STRICTLY limited to Read-Only Metadata APIs for resource state confirmation
+  # checkov:skip=CKV_AWS_356: "Read-only describe APIs require '*' resource"
   statement {
     sid    = "ResourceInventoryMetadataAccess"
     effect = "Allow"
