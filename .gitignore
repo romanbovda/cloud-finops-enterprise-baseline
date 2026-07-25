@@ -30,10 +30,5 @@ terraform.rc
 # MacOS
 .DS_Store
 
-# Our own applied instance of the client-onboarding template (real
-# external_id + account IDs for the internal dogfood/CI test client,
-# account 900515854891) — must never be committed to this PUBLIC repo.
-# Real clients get their own separate copy of this file in their own repo;
-# this one is purely local/operational.
 /modules/client-onboarding/main.tf
 /note

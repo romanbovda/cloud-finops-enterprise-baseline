@@ -47,6 +47,17 @@ The first delivery can take up to 24 hours.
    MSCK REPAIR TABLE <your_database>.<your_table>;
    ```
 
+4. Verify that you correctly selected **Overwrite existing data export file** in Step 1 by running this canary query:
+
+   ```sql
+   SELECT bill_billing_period_start_date as billing_period, COUNT(DISTINCT "$path") as file_versions 
+   FROM <your_database>.<your_table> 
+   GROUP BY 1;
+   ```
+
+   > [!WARNING]
+   > If the `file_versions` column returns a number greater than 1 for any billing period, your export is configured to "Create new file" on delivery. **You must delete the export and recreate it using "Overwrite existing data export file".** If you do not, your costs will be exponentially double-counted every time AWS delivers an update.
+
 ---
 
 ## Step 3: Continue onboarding

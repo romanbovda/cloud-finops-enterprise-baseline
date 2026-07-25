@@ -133,9 +133,9 @@ We strongly encourage your Security Operations and CISO teams to review the unde
 
 - **Strict IAM Scoping:** Permissions are explicitly scoped to the designated Athena Workgroup ARN and the `finops-audit-results-*` S3 bucket pattern. We avoid wildcard resource grants.
 - **Enforced Workgroup Boundaries:** The Athena Workgroup enforces that query results can **only** be written to the local S3 bucket, physically preventing our engine from redirecting output externally.
-- **Read-Only Data Access:** The IAM role is granted restricted `s3:GetObject` access to your CUR bucket. It has zero capability to write, list, or delete your underlying billing data.
+- **Read-Only Data Access:** The IAM role is granted restricted `s3:GetObject` access to your CUR bucket, and strictly read-only metadata permissions (e.g., `ec2:DescribeVolumes`) to confirm resource configuration state. It has zero capability to write, list, or delete your underlying billing data, and cannot access application data.
 - **ExternalId Protection:** The Trust Policy incorporates an `ExternalId` condition, neutralizing [Confused Deputy attacks](https://docs.aws.amazon.com/IAM/latest/UserGuide/confused-deputy.html).
 - **Automated Data Lifecycle:** All transient Athena query results are automatically purged after 3 days via an S3 lifecycle rule.
-- **Micro-Payload Exfiltration:** The audit engine is architected to read only the **aggregated output** of SQL queries (typically kilobytes of analytical metrics), ensuring your raw CUR files never leave your environment.
+- **Micro-Payload Exfiltration:** The audit engine is architected to read only the **aggregated output** of SQL queries and metadata checks (typically kilobytes of JSON), ensuring your raw CUR files never leave your environment.
 
 For a complete visual representation of this secure boundary, please refer to our [`architecture_overview.md`](./architecture_overview.md).

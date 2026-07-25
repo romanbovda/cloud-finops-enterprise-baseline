@@ -14,10 +14,12 @@ flowchart LR
         direction TB
         CUR[("Raw Billing Data (S3)\nMassive scale, highly sensitive")]
         Athena[["Amazon Athena\n(Serverless Query Engine)"]]
+        ControlPlane[["AWS Control Plane\n(Read-Only Metadata APIs)"]]
         Role{"Least Privilege IAM Role\n(Protected by External ID)"}
 
         CUR -. "Read-Only Access" .-> Athena
         Role -. "Strictly Scoped Execution" .-> Athena
+        Role -. "State Confirmation" .-> ControlPlane
     end
 
     subgraph Auditor_Env ["🚀 Consulting AI Engine (Auditor AWS)"]
