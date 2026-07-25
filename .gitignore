@@ -32,3 +32,4 @@ terraform.rc
 
 /modules/client-onboarding/main.tf
 /note
+**/.terraform.lock.hcl
