@@ -47,4 +47,4 @@ This repository represents a core component of our professional FinOps consultin
 
 **Roman Bovda**
 *Cloud FinOps Consultant*
-[LinkedIn](https://www.linkedin.com/in/roman-bovda-918659102/) | [GitHub](https://github.com/romanbovda)
+[LinkedIn](https://www.linkedin.com/in/romanbovda) | [GitHub](https://github.com/romanbovda)
