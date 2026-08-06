@@ -1,6 +1,6 @@
 # FinOps Audit Engine: Client Onboarding
 
-Welcome to the FinOps & SRE Consulting Services onboarding process. To maintain strict data sovereignty and comply with our **Zero Data Extraction** policy, our proprietary audit engine executes performance and cost queries directly within your AWS environment using Amazon Athena.
+Welcome to the FinOps Consulting Services onboarding process. To maintain strict data sovereignty and comply with our **Zero Data Extraction** policy, our proprietary audit engine executes performance and cost queries directly within your AWS environment using Amazon Athena.
 
 To enable this capability, please deploy the provided Terraform module in your AWS environment. This module references our secure, open-source architecture directly from GitHub — **no files to manually copy, and no external scripts to execute**.
 
