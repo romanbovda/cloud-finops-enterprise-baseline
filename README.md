@@ -7,7 +7,7 @@
 [![Security](https://img.shields.io/badge/DevSecOps-Trivy_%7C_Checkov-000000.svg?logo=security)](https://trivy.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An enterprise-grade **Cloud FinOps and SRE Baseline** engineered to enforce rigorous financial controls, architectural standards, and proactive anomaly detection across scale-out AWS environments.
+An enterprise-grade **Cloud FinOps and Governance Baseline** engineered to enforce rigorous financial controls, architectural standards, and proactive anomaly detection across scale-out AWS environments.
 
 This repository serves as our foundational reference architecture for organizations seeking to operationalize Shift-Left FinOps and DevSecOps within their Infrastructure as Code (IaC) pipelines. It underpins our professional consulting methodologies.
 
@@ -41,10 +41,10 @@ Our reference CI/CD pipelines enforce a zero-trust approach to infrastructure mu
 
 ## Engagement
 
-This repository represents a core component of our professional FinOps and SRE consulting engagements. To explore how we can optimize your cloud architecture and operationalize these controls within your organization, please review our [Client Onboarding Documentation](modules/client-onboarding/README.md).
+This repository represents a core component of our professional FinOps consulting engagements. To explore how we can optimize your cloud architecture and operationalize these controls within your organization, please review our [Client Onboarding Documentation](modules/client-onboarding/README.md).
 
 ---
 
 **Roman Bovda**
-*Cloud FinOps & Site Reliability Engineering Consultant*
+*Cloud FinOps Consultant*
 [LinkedIn](https://www.linkedin.com/in/roman-bovda-918659102/) | [GitHub](https://github.com/romanbovda)
